@@ -21,7 +21,7 @@
   <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -65,28 +65,46 @@
             </td>
           </tr>
         </table>
-        <table  style="padding:2,5%;border:2px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
+        <table  style="padding:2.5%;width:100%;border:0px;border-spacing:0px;border-collapse:separate;padding-top:0;margin-right:auto;margin-left:auto;">
           <tr>
             <td style="width:50%;text-align:left">
               <h3>Credited Courses</h3>
             </td>
+            {% if site.show-grade %}
+              <td></td>
+            {% endif %}
             <td style="width:50%;text-align:left">
               <h3>Audited Courses</h3>
             </td>
           </tr>
           <tr>
-            <td style="width:50%;vertical-align:top">
-              <p><b>E1 222</b> Stochastic Models and Applications (<b>8</b>/10)</p>
-              <p><b>E9 241</b> Digital Image Processing (<b>8</b>/10)</p>
-              <p><b>E9 241</b> Machine Learning for Data Science (<b>8</b>/10)</p>
-              <p><b>E0 230</b> Computational Methods in Optimization (7/10)</p>
-              <p><b>DS 265</b> Deep Learning and Computer Vision (6/10)</p>
+            <td style="width:50%;vertical-align:top;text-align:left">
+              <p><b>E1 222</b> Stochastic Models and Applications  <br>
+              <b>E9 241</b> Digital Image Processing  <br>
+              <b>E9 241</b> Machine Learning for Data Science  <br>
+              <b>E0 230</b> Computational Methods in Optimization  <br>
+              <b>DS 265</b> Deep Learning and Computer Vision  <br>
+            </p>
             </td>
-            <td style="width:50%;vertical-align:top"> 
-              <p><b>E2 335</b> Topics in Artificial Intelligence</p>
-              <p><b>E1 213</b> Pattern Recognition and Neural Networks</p>
-              <p><b>E0 298</b> Linear Algebra and Its Applications</p>
+            {% if site.show-grade %}
+              <td style="width:10%;vertical-align:top;text-align:left">
+                <p>
+                  (<b>8</b>/10)<br>
+                  (<b>8</b>/10)<br>
+                  (<b>8</b>/10)<br>
+                  (7/10)<br>
+                  (6/10)
+                </p>
+              </td>
+            {% endif %}
+            
+            <td style="width:50%;vertical-align:top;text-align:left"> 
+              <p><b>E2 335</b> Topics in Artificial Intelligence <br>
+              <b>E1 213</b> Pattern Recognition and Neural Networks <br>
+              <b>E0 298</b> Linear Algebra and Its Applications <br>
+            </p>
             </td>
+          </tr>
         </table>
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
           <tr>
@@ -213,13 +231,25 @@
           {% endfor %}
           {% endfor %}
         </table>
-
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
           <tr>
             <td style="padding:0px">
               <br>
-              <p style="text-align:center;font-size:small;">
-                Design and source code from <a style="font-size:small;" href="https://jonbarron.info">Jon Barron's website</a>
+              <p style="text-align:center;font-size:x-large;">
+                <a style="font-size:x-large" href="mailto:{{ site.info.email }}"> <i class="fa fa-envelope"></i> </a> &nbsp;|&nbsp;
+                <a style="font-size:x-large" href="https://github.com/{{ site.info.github }}"><i class="fa fa-github"></i></a> &nbsp;|&nbsp;
+                <a style="font-size:x-large" href="https://scholar.google.com/citations?user={{ site.info.scholar }}"><i class="fa fa-google"></i></a> &nbsp;|&nbsp;
+                <a style="font-size:x-large" href="https://www.linkedin.com/in/{{ site.info.linkedin }}"> <i class="fa fa-linkedin"></i> </a> &nbsp;|&nbsp;
+                <a style="font-size:x-large" href="https://www.x.com/{{ site.info.twitter }}"> <i class="fa fa-twitter"></i> </a>  &nbsp;|&nbsp;
+                <a style="font-size:x-large" href="https://www.instagram.com/{{ site.info.instagram }}"> <i class="fa fa-instagram"></i> </a>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:0px; margin:0px;width:100%;vertical-align:middle">
+              <br>
+              <p style="text-align:center;font-size:x-small;">
+                Design and source code from <a style="font-size:x-small;" href="https://jonbarron.info">Jon Barron's website</a>
               </p>
             </td>
           </tr>
