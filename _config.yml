@@ -3,33 +3,46 @@
 #
 
 # Name of your site (displayed in the header)
-name: Leonid Keselman
-
+name: Arka Haldi
 # Short bio or description (displayed in the header)
 # description: the profile of an engineer, researcher and software developer
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: images/circle_bw_crop.jpg
+avatar: images/Arka_h.png
 
 #
 # Flags below are optional
 #
+personal:
+  name: Arka Haldi
+  email: aurkohaldi@gmail.com
+
+info:
+  email: arkahaldi@iisc.ac.in
+  twitter: Arkah68569353
+  github: Arka-h
+  instagram: random_access_memory__
+  linkedin: arkahaldi
+  scholar: YW2est4AAAAJ
+
+
 
 # Includes an icon in the footer for each username you enter
-footer-links:
-  dribbble:
-  email: lkeselman@gmail.com
-  facebook:
-  flickr:
-  github: leonidk
-  instagram: leo_nid_k
-  linkedin:
-  pinterest:
-  rss: # just type anything here for a working RSS icon
-  twitter:
-  stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
-  youtube: # channel/<your_long_string> or user/<user-name>
-  googleplus: # anything in your profile username that comes after plus.google.com/
+# footer-links:
+#   dribbble:
+#   email-personal: aurkohaldi@gmail.com
+#   email: arkahaldi@iisc.ac.in
+#   facebook:
+#   flickr:
+#   github: Arka-h
+#   instagram: random_access_memory__
+#   linkedin: arkahaldi
+#   pinterest:
+#   rss: # just type anything here for a working RSS icon
+#   twitter: Arkah68569353
+#   stackoverflow: # your stackoverflow profile, e.g. "users/50476/bart-kiers"
+#   youtube: # channel/<your_long_string> or user/<user-name>
+#   googleplus: # anything in your profile username that comes after plus.google.com/
 
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
@@ -42,7 +55,7 @@ google_analytics:
 
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
-url: "https://leonidk.com" # the base hostname & protocol for your site
+url: "https://arka.github.io" #"https://arkahaldi.in" # the base hostname & protocol for your site
 
 # If you're hosting your site at a Project repository on GitHub pages
 # (http://yourusername.github.io/repository-name)
