@@ -2,7 +2,7 @@
 layout: post
 title:  "Untitled"
 date:   2019-06-04 22:21:59 +00:00
-image: /images/404.jpg
+image: "/images/404.jpg"
 categories: ongoing
 author: "Arka Haldi"
 authors: "<strong>Arka Haldi</strong>"
