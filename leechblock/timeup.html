@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pause Page</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #0b3d0b, #145214, #1e6b1e);
+      font-family: 'Merriweather', serif;
+      color: #f9fff9;
+      overflow: hidden;
+    }
+    @media (prefers-color-scheme: light) {
+      body {
+        background: linear-gradient(135deg, #2e7d32, #388e3c, #43a047);
+      }
+    }
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: linear-gradient(135deg, #0b3d0b, #145214, #1e6b1e);
+      }
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 25px;
+      padding: 50px 40px;
+      max-width: 650px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+      z-index: 2;
+      animation: float 6s ease-in-out infinite;
+    }
+    .disk {
+      margin: 20px auto 0;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center,
+        #333 20%, #111 60%, #000 100%);
+      animation: spin 6s linear infinite;
+      position: relative;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+    .disk::before {
+      content: "♬";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: red;
+      box-shadow: 0 0 5px rgba(0,0,0,0.7);
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .fallback {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: #eee;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+      100% { transform: translateY(0px); }
+    }
+    .leaf {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: url('https://upload.wikimedia.org/wikipedia/commons/4/47/Leaf_icon.svg') no-repeat center/contain;
+      opacity: 0.5;
+      animation: drift 12s linear infinite;
+    }
+    @keyframes drift {
+      from { transform: translateY(-100px) rotate(0deg); }
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+    .leaf:nth-child(1) { left: 10%; animation-duration: 14s; }
+    .leaf:nth-child(2) { left: 30%; animation-duration: 18s; width: 50px; height: 50px; }
+    .leaf:nth-child(3) { left: 60%; animation-duration: 20s; }
+    .leaf:nth-child(4) { left: 80%; animation-duration: 15s; width: 35px; height: 35px; }
+    @media (max-width: 650px) {
+      .card { padding: 30px 20px; }
+      h1 { font-size: 1.5rem; }
+      p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>
+      You’ve&nbsp;chosen&nbsp;to&nbsp;pause&nbsp;here&nbsp;🌱<br>
+      This&nbsp;isn’t&nbsp;punishment<br>—&nbsp;it’s&nbsp;self-care.
+    </h1>
+    <p>Take a breath, look around, maybe stretch or sip some water.<br>
+    Your apps will be here later — right now, you’re giving your mind the space it deserves.&nbsp;✨</p>
+    <div class="disk"></div>
+    <audio autoplay loop>
+      <source src="https://arkahaldi.in/leechblock/pixabay-morning-breeze-and-birds-35105.mp3" type="audio/mpeg">
+      <div class="fallback">🎵 Audio unavailable. Enjoy the quiet breeze. 🌿</div>
+    </audio>
+   </div>
+
+  </div>
+
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+  <div class="leaf"></div>
+</body>
+</html>
