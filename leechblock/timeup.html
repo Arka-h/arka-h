@@ -1,138 +1,223 @@
----
-layout: none
----
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pause Page</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --glass: rgba(255, 255, 255, 0.15);
+      --shadow: rgba(0,0,0,0.4);
+      --text-dim: #e9f6ea;
+    }
     body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      margin: 0; height: 100vh; display: flex; justify-content: center; align-items: center;
       background: linear-gradient(135deg, #0b3d0b, #145214, #1e6b1e);
-      font-family: 'Merriweather', serif;
-      color: #f9fff9;
-      overflow: hidden;
+      font-family: 'Merriweather', serif; color: #f9fff9; overflow: hidden;
     }
     @media (prefers-color-scheme: light) {
-      body {
-        background: linear-gradient(135deg, #2e7d32, #388e3c, #43a047);
-      }
-    }
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: linear-gradient(135deg, #0b3d0b, #145214, #1e6b1e);
-      }
+      body { background: linear-gradient(135deg, #2e7d32, #388e3c, #43a047); }
     }
     .card {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 25px;
-      padding: 50px 40px;
-      max-width: 650px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-      backdrop-filter: blur(10px);
-      z-index: 2;
-      animation: float 6s ease-in-out infinite;
+      background: var(--glass);
+      border-radius: 25px; padding: 50px 40px; max-width: 650px; text-align: center;
+      box-shadow: 0 10px 30px var(--shadow); backdrop-filter: blur(10px);
+      z-index: 2; animation: float 6s ease-in-out infinite;
     }
+    h1 { font-size: 2.2rem; margin-bottom: 22px; line-height: 1.55; }
+    p { font-size: 1.1rem; line-height: 1.7; color: var(--text-dim); }
+
+    /* Disk */
     .disk {
-      margin: 20px auto 0;
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: radial-gradient(circle at center,
-        #333 20%, #111 60%, #000 100%);
-      animation: spin 6s linear infinite;
-      position: relative;
-      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      margin: 22px auto 8px; width: 130px; height: 130px; border-radius: 50%;
+      background: radial-gradient(circle at center, #333 20%, #111 60%, #000 100%);
+      position: relative; box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      cursor: pointer; user-select: none; outline: none;
+      display: grid; place-items: center;
     }
+    .disk.playing { animation: spin 6s linear infinite; }
+    .disk.muted   { filter: grayscale(0.9) brightness(0.8); }
     .disk::before {
-      content: "♬";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: red;
+      content: "♪"; display: grid; place-items: center;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: #e53935; color: #fff; font-weight: 700; font-size: 18px;
       box-shadow: 0 0 5px rgba(0,0,0,0.7);
     }
+    .disk.muted::before { content: "🔇"; background: #455a64; }
 
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
+    /* Bouncy feedback */
+    .disk.bump { animation: bump 210ms cubic-bezier(.2,.7,.3,1); }
+    /* Keep spinning even while bump runs (when both classes are present) */
+    .disk.playing.bump {
+      animation: spin 6s linear infinite, bump 210ms cubic-bezier(.2,.7,.3,1);
     }
-    .fallback {
-      margin-top: 10px;
-      font-size: 0.8rem;
-      color: #eee;
+    @keyframes bump {
+      0%{ transform: scale(1) }
+      35%{ transform: scale(.94) }
+      70%{ transform: scale(1.02) }
+      100%{ transform: scale(1) }
     }
 
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 25px;
-      line-height: 1.6;
+    /* Small hint text */
+    .hint { font-size: .85rem; color: #d8f4db; opacity: .85; margin-bottom: 6px; }
+
+    /* Toast */
+    .toast {
+      position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%);
+      background: rgba(20, 31, 20, 0.75);
+      color: #eaffe0; padding: 10px 14px; border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35); backdrop-filter: blur(8px);
+      font-size: .95rem; pointer-events: none; z-index: 10;
+      animation: toast-in .28s ease-out, toast-out .6s ease-in 4.4s forwards;
     }
-    p {
-      font-size: 1.1rem;
-      line-height: 1.7;
+    @keyframes toast-in {
+      from { transform: translateX(-50%) translateY(10px); opacity: 0; }
+      to   { transform: translateX(-50%) translateY(0); opacity: 1; }
     }
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-12px); }
-      100% { transform: translateY(0px); }
+    @keyframes toast-out {
+      to   { transform: translateX(-50%) translateY(8px); opacity: 0; }
     }
-    .leaf {
-      position: absolute;
-      width: 40px;
-      height: 40px;
+
+    /* Floating leaves */
+    .leaf { position: absolute; width: 40px; height: 40px;
       background: url('https://upload.wikimedia.org/wikipedia/commons/4/47/Leaf_icon.svg') no-repeat center/contain;
-      opacity: 0.5;
-      animation: drift 12s linear infinite;
-    }
+      opacity: .5; animation: drift 12s linear infinite; }
     @keyframes drift {
       from { transform: translateY(-100px) rotate(0deg); }
-      to { transform: translateY(110vh) rotate(360deg); }
+      to   { transform: translateY(110vh) rotate(360deg); }
     }
     .leaf:nth-child(1) { left: 10%; animation-duration: 14s; }
     .leaf:nth-child(2) { left: 30%; animation-duration: 18s; width: 50px; height: 50px; }
     .leaf:nth-child(3) { left: 60%; animation-duration: 20s; }
     .leaf:nth-child(4) { left: 80%; animation-duration: 15s; width: 35px; height: 35px; }
+
+    @keyframes spin { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
+    @keyframes float { 0%{ transform: translateY(0) } 50%{ transform: translateY(-12px)} 100%{ transform: translateY(0)} }
+
     @media (max-width: 650px) {
       .card { padding: 30px 20px; }
       h1 { font-size: 1.5rem; }
-      p { font-size: 1rem; }
+      p  { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
-  <div class="card">
+  <div class="card" aria-live="polite">
     <h1>
       You’ve&nbsp;chosen&nbsp;to&nbsp;pause&nbsp;here&nbsp;🌱<br>
-      This&nbsp;isn’t&nbsp;punishment<br>—&nbsp;it’s&nbsp;self-care.
+      This&nbsp;isn’t&nbsp;punishment—&nbsp;it’s&nbsp;self-care.
     </h1>
     <p>Take a breath, look around, maybe stretch or sip some water.<br>
-    Your apps will be here later — right now, you’re giving your mind the space it deserves.&nbsp;✨</p>
-    <div class="disk"></div>
-    <audio autoplay loop>
-      <source src="https://arkahaldi.in/leechblock/pixabay-morning-breeze-and-birds-35105.mp3" type="audio/mpeg">
-      <div class="fallback">🎵 Audio unavailable. Enjoy the quiet breeze. 🌿</div>
-    </audio>
-   </div>
+       Your apps will be here later — right now, you’re giving your mind the space it deserves.&nbsp;✨</p>
 
+    <!-- Record button (start muted + not spinning) -->
+    <div class="disk muted" id="record" role="button" tabindex="0" aria-label="Change sound or mute"></div>
+    <div class="hint" id="hint">Tap the record to pick a sound</div>
+    <!-- Audio (looping; source set via JS) -->
+    <audio id="bgm" preload="none" loop></audio>
   </div>
 
-  <div class="leaf"></div>
-  <div class="leaf"></div>
-  <div class="leaf"></div>
-  <div class="leaf"></div>
+  <!-- Ambient leaves -->
+  <div class="leaf"></div><div class="leaf"></div><div class="leaf"></div><div class="leaf"></div>
+
+  <script>
+    // ▶️ Configure your tracks here (last item is Mute).
+    const tracks = [
+      { title: "Morning Breeze & Birds", src: "https://arkahaldi.in/leechblock/breeze_and_birds_pb.mp3" }, 
+      { title: "Piano & Birds",          src: "https://arkahaldi.in/leechblock/piano_and_birds_yt.mp3" }, 
+      { title: "Piano & Water",          src: "https://arkahaldi.in/leechblock/piano_and_water_yt.mp3" }, 
+      { title: "Mute",                   src: null } // special: mute
+    ];
+
+    const audio = document.getElementById('bgm');
+    const record = document.getElementById('record');
+    const hint   = document.getElementById('hint');
+
+    // Restore last choice
+    let idx = parseInt(localStorage.getItem('lb_track_idx') || '0', 10);
+    if (isNaN(idx) || idx < 0 || idx >= tracks.length) idx = 0;
+    // New: don’t auto-play on load; wait for first user gesture
+    let started = false;
+    // Applies the selected track + UI state
+    function applyTrack(i, {showToast=true, userGesture=false} = {}) {
+      idx = i % tracks.length;
+      const t = tracks[idx];
+      localStorage.setItem('lb_track_idx', String(idx));
+
+       if (!t.src) {
+        // Mute
+        audio.pause();
+        audio.removeAttribute('src'); // fully reset source
+        audio.load();                 // commit reset for some browsers
+        record.classList.remove('playing');
+        record.classList.add('muted');
+        if (showToast) toast("Muted");
+        return;
+      }
+
+      // Non-mute: set source & try to play (ensure fresh load before play)
+      audio.pause();
+      if (audio.currentSrc !== t.src) {
+        audio.src = t.src;
+      }
+      audio.load(); // avoid stale state across quick switches
+      // iOS/Chromium may block autoplay unless it's a user gesture
+      const playPromise = audio.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          // If not a gesture, hint the user
+          if (!userGesture) hint.hidden = false;
+        });
+      }
+      record.classList.remove('muted');
+      record.classList.add('playing');
+      if (showToast) toast(`Playing: ${t.title}`);
+    }
+
+    // Cycle to next track (with bouncy feedback)
+    function nextTrack(userGesture=false) {
+      record.classList.remove('bump');
+      void record.offsetWidth; // reflow to restart animation
+      record.classList.add('bump');
+      applyTrack((idx + 1) % tracks.length, { userGesture });
+    }
+
+    // Toast helper
+    function toast(msg) {
+      const el = document.createElement('div');
+      el.className = 'toast';
+      el.textContent = msg;
+      document.body.appendChild(el);
+      // Remove after animation completes (≈5s)
+      setTimeout(() => el.remove(), 5200);
+    }
+
+    // New: first click starts playback (using saved track unless it was Mute)
+    function startOrCycle(){
+      if (!started){
+        started = true;
+        hint.hidden = true;
+        const MUTE_INDEX = tracks.length - 1;
+        const firstIndex = (idx === MUTE_INDEX ? 0 : idx);
+        applyTrack(firstIndex, { userGesture:true });
+        return;
+      }
+      // after first start, subsequent clicks just cycle
+      nextTrack(true);
+    }
+
+    // Click / keyboard handlers
+    record.addEventListener('click', () => startOrCycle());
+    record.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        startOrCycle();
+      }
+    });
+    // (Optional safety) If audio starts by any means, hide the hint.
+    audio.addEventListener('playing', () => { hint.hidden = true; });
+  </script>
 </body>
 </html>
