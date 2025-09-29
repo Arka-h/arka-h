@@ -28,12 +28,10 @@
   <a href="https://scholar.google.com/citations?user=YW2est4AAAAJ&hl=en" target="_blank">
     <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" alt="Google Scholar" width="40" height="40"/>
   </a>
-  
   &nbsp;
   <a href="mailto:aurkohaldi@gmail.com">
     <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Email" width="40" height="40"/>
   </a>
-  
   &nbsp;
   <a href="https://arkahaldi.in" target="_blank">
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" alt="Website" width="40" height="40"/>
